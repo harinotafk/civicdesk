@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>Officer desk - CivicDesk Chennai</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/officer.html"><span class="brand-mark" aria-hidden="true"></span>CivicDesk Chennai</a>
+    <div class="who" id="who"></div>
+    <button type="button" id="logout" class="small">Log out</button>
+  </header>
+
+  <main class="page">
+    <div class="panel-head">
+      <h1 style="margin:0" id="scope-title">Your area</h1>
+      <button type="button" class="secondary small" id="refresh">Refresh</button>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-tab="work">Complaints</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="overview">Overview</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="policies">Policies</button>
+    </div>
+
+    <section id="tab-work">
+      <div class="kpis" id="kpis-mini"></div>
+      <div class="panel" id="board"></div>
+    </section>
+
+    <section id="tab-overview" class="hidden">
+        <div class="kpis" id="kpis"></div>
+        <div class="charts">
+          <div class="panel"><h3>Complaints filed, last 14 days</h3><div class="chart-box"><canvas id="chart-daily" aria-label="Bar chart of complaints filed per day" role="img"></canvas></div></div>
+          <div class="panel" style="margin-top:0"><h3>Open complaints by department</h3><div class="chart-box"><canvas id="chart-dept" aria-label="Bar chart of open complaints per department, split into within deadline and overdue" role="img"></canvas></div></div>
+        </div>
+        <div class="panel"><h3>Wards with the most open complaints</h3><div id="table-wards"></div></div>
+        <div class="panel"><h3>By department</h3><div id="table-departments"></div></div>
+        <div class="panel"><h3>By category</h3><div id="table-categories"></div></div>
+    </section>
+    <section id="tab-policies" class="hidden">
+      <div class="panel">
+        <h2>Policies you work to</h2>
+        <p class="muted">Deadlines and procedures for each type of complaint.</p>
+        <div id="policies-reader"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/tabs.js"></script>
+  <script src="/js/board.js"></script>
+  <script src="/js/policies.js"></script>
+  <script src="/js/dash.js"></script>
+  <script src="/js/officer.js"></script>
+</body>
+</html>

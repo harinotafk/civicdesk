@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My complaints - CivicDesk Chennai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/citizen.html"><span class="brand-mark" aria-hidden="true"></span>CivicDesk Chennai</a>
+    <div class="who" id="who"></div>
+    <button type="button" id="logout" class="small">Log out</button>
+  </header>
+
+  <main class="page split">
+    <section class="panel" aria-labelledby="file-title">
+      <h2 id="file-title">Report a problem</h2>
+      <form id="complaint-form" novalidate>
+        <label for="category">What is the problem?</label>
+        <select id="category" required><option value="">Loading...</option></select>
+        <div class="field-error" data-error-for="categoryId"></div>
+        <p class="muted" id="sla-hint" style="margin:4px 0 0"></p>
+        <p class="muted policy-hint hidden" id="policy-hint" style="margin:2px 0 0"></p>
+
+        <div class="row">
+          <div>
+            <label for="zone">Zone</label>
+            <select id="zone" required><option value="">Loading...</option></select>
+          </div>
+          <div>
+            <label for="ward">Ward</label>
+            <select id="ward" required disabled><option value="">Choose a zone first</option></select>
+            <div class="field-error" data-error-for="wardId"></div>
+          </div>
+        </div>
+
+        <label for="description">Describe it <span class="hint">(10 to 1000 characters)</span></label>
+        <textarea id="description" maxlength="1000" required placeholder="For example: deep pothole in front of the school gate, two-wheelers are slipping"></textarea>
+        <div class="field-error" data-error-for="description"></div>
+
+        <label for="landmark">Nearby landmark <span class="hint">(optional)</span></label>
+        <input id="landmark" maxlength="200" placeholder="For example: opposite the bus depot">
+        <div class="field-error" data-error-for="landmark"></div>
+
+        <label>Exact spot <span class="hint">(optional, tap the map)</span></label>
+        <div id="map" class="map" role="application" aria-label="Map to choose the exact spot"></div>
+        <p class="map-note" id="map-note">No spot chosen. A pin helps the field team and spots duplicate reports.</p>
+        <div class="field-error" data-error-for="latitude"></div>
+        <div class="actions">
+          <button type="button" class="secondary small" id="use-location">Use my location</button>
+          <button type="button" class="secondary small" id="clear-pin">Remove pin</button>
+        </div>
+
+        <div class="actions"><button type="submit">Submit complaint</button></div>
+        <div class="form-message" role="alert"></div>
+      </form>
+    </section>
+
+    <section class="panel" aria-labelledby="mine-title">
+      <div class="panel-head">
+        <h2 id="mine-title">My complaints</h2>
+        <label class="visually-hidden" for="mine-filter">Show</label>
+        <select id="mine-filter" style="width:auto">
+          <option value="">All</option>
+          <option value="SUBMITTED,ASSIGNED,IN_PROGRESS,REOPENED">Open</option>
+          <option value="RESOLVED">Waiting for my confirmation</option>
+          <option value="CLOSED">Closed</option>
+        </select>
+      </div>
+      <ul class="complaints" id="mine"></ul>
+      <div class="pager" id="mine-pager"></div>
+    </section>
+
+    <section class="panel policies-wide" aria-labelledby="policies-title" id="policies">
+      <h2 id="policies-title">How we handle problems</h2>
+      <p class="muted">The policies and deadlines the Corporation works to. Open one to read it.</p>
+      <div id="policies-reader"></div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/policies.js"></script>
+  <script src="/js/citizen.js"></script>
+</body>
+</html>

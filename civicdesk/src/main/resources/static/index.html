@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CivicDesk Chennai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/"><span class="brand-mark" aria-hidden="true"></span>CivicDesk Chennai</a>
+  </header>
+
+  <main class="landing">
+    <section>
+      <h1>Every civic complaint gets a deadline.</h1>
+      <p class="lede">Report a pothole, a dark streetlight or an overflowing drain to the Greater Chennai Corporation. Your complaint goes straight to your ward officer, and if they miss the deadline it moves up the chain on its own.</p>
+
+      <div class="clock-demo" aria-label="Example complaints">
+        <div class="complaint-line">
+          <div class="top" style="display:flex;gap:8px;align-items:center"><span class="badge IN_PROGRESS">In progress</span><strong>Streetlight not working</strong></div>
+          <div class="sla"><div class="sla-track"><div class="sla-fill" style="width:30%"></div></div><div class="sla-text"><strong>Due in 1d 9h</strong><span>Ward 170, Adyar</span></div></div>
+        </div>
+        <div class="complaint-line">
+          <div class="top" style="display:flex;gap:8px;align-items:center"><span class="badge ASSIGNED">Assigned</span><strong>Waterlogging</strong></div>
+          <div class="sla warn"><div class="sla-track"><div class="sla-fill" style="width:82%"></div></div><div class="sla-text"><strong>Due in 2h 10m</strong><span>Ward 171, Adyar</span></div></div>
+        </div>
+        <div class="complaint-line">
+          <div class="top" style="display:flex;gap:8px;align-items:center"><span class="badge ASSIGNED">Assigned</span><span class="badge level-1">Escalated to Zonal Officer</span><strong>Pothole</strong></div>
+          <div class="sla over"><div class="sla-track"><div class="sla-fill" style="width:100%"></div></div><div class="sla-text"><strong>Overdue by 1d 4h</strong><span>Ward 100, Anna Nagar</span></div></div>
+        </div>
+      </div>
+
+      <h2>Who answers when a deadline is missed</h2>
+      <ol class="chain">
+        <li><span class="step">1</span><span><strong>Ward Officer</strong><br><span class="muted">Gets your complaint the moment you file it.</span></span></li>
+        <li><span class="step">2</span><span><strong>Zonal Officer</strong><br><span class="muted">Takes over if the ward deadline passes.</span></span></li>
+        <li><span class="step">3</span><span><strong>Commissioner</strong><br><span class="muted">Sees anything the zone could not close in time.</span></span></li>
+      </ol>
+    </section>
+
+    <section class="panel" aria-label="Log in or create an account">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tab-login" aria-selected="true" aria-controls="login-form">Log in</button>
+        <button type="button" role="tab" id="tab-register" aria-selected="false" aria-controls="register-form">Create account</button>
+      </div>
+
+      <p id="expired" class="form-message error" role="alert">Your session ended. Please log in again.</p>
+
+      <form id="login-form" novalidate>
+        <label for="login-email">Email</label>
+        <input id="login-email" name="email" type="email" autocomplete="username" required>
+        <div class="field-error" data-error-for="email"></div>
+
+        <label for="login-password">Password</label>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+        <div class="field-error" data-error-for="password"></div>
+
+        <div class="actions"><button type="submit">Log in</button></div>
+        <div class="form-message" role="alert"></div>
+      </form>
+
+      <form id="register-form" class="hidden" novalidate>
+        <label for="reg-name">Full name</label>
+        <input id="reg-name" name="name" autocomplete="name" maxlength="100" required>
+        <div class="field-error" data-error-for="name"></div>
+
+        <label for="reg-email">Email</label>
+        <input id="reg-email" name="email" type="email" autocomplete="email" maxlength="150" required>
+        <div class="field-error" data-error-for="email"></div>
+
+        <label for="reg-phone">Mobile number <span class="hint">(10 digits)</span></label>
+        <input id="reg-phone" name="phone" inputmode="numeric" autocomplete="tel-national" maxlength="10" required>
+        <div class="field-error" data-error-for="phone"></div>
+
+        <label for="reg-password">Password <span class="hint">(at least 8 characters)</span></label>
+        <input id="reg-password" name="password" type="password" autocomplete="new-password" minlength="8" maxlength="72" required>
+        <div class="field-error" data-error-for="password"></div>
+
+        <div class="actions"><button type="submit">Create account</button></div>
+        <div class="form-message" role="alert"></div>
+      </form>
+
+      <div class="demo-accounts">
+        <h3 style="margin-top:24px">Demo accounts</h3>
+        <p class="muted">All use the password <strong>Password@123</strong>.</p>
+        <table>
+          <tbody>
+            <tr><td>Citizen</td><td>ram@example.com<button type="button" class="secondary small" data-demo="ram@example.com">Use</button></td></tr>
+            <tr><td>Ward Officer, Ward 170</td><td>ward170@civicdesk.in<button type="button" class="secondary small" data-demo="ward170@civicdesk.in">Use</button></td></tr>
+            <tr><td>Zonal Officer, Adyar</td><td>zonal.adyar@civicdesk.in<button type="button" class="secondary small" data-demo="zonal.adyar@civicdesk.in">Use</button></td></tr>
+            <tr><td>Commissioner (Admin)</td><td>admin@civicdesk.in<button type="button" class="secondary small" data-demo="admin@civicdesk.in">Use</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>Commissioner dashboard - CivicDesk Chennai</title>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/admin.html"><span class="brand-mark" aria-hidden="true"></span>CivicDesk Chennai</a>
+    <div class="who" id="who"></div>
+    <button type="button" id="logout" class="small">Log out</button>
+  </header>
+
+  <main class="page">
+    <div class="panel-head">
+      <h1 style="margin:0">All of Chennai</h1>
+      <button type="button" class="secondary small" id="refresh">Refresh</button>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" aria-selected="true" data-tab="overview">Overview</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="work">Complaints</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="policies">Policies</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="users">Users</button>
+      <button type="button" role="tab" aria-selected="false" data-tab="tools">SLA engine and demo</button>
+    </div>
+
+    <section id="tab-overview">
+        <div class="kpis" id="kpis"></div>
+        <div class="charts">
+          <div class="panel"><h3>Complaints filed, last 14 days</h3><div class="chart-box"><canvas id="chart-daily" aria-label="Bar chart of complaints filed per day" role="img"></canvas></div></div>
+          <div class="panel" style="margin-top:0"><h3>Open complaints by department</h3><div class="chart-box"><canvas id="chart-dept" aria-label="Bar chart of open complaints per department, split into within deadline and overdue" role="img"></canvas></div></div>
+        </div>
+        <div class="panel"><h3>Wards with the most open complaints</h3><div id="table-wards"></div></div>
+        <div class="panel"><h3>By department</h3><div id="table-departments"></div></div>
+        <div class="panel"><h3>By category</h3><div id="table-categories"></div></div>
+    </section>
+
+    <section id="tab-work" class="hidden">
+      <div class="panel" id="board"></div>
+    </section>
+
+    <section id="tab-policies" class="hidden">
+      <div id="policies-admin"></div>
+    </section>
+
+    <section id="tab-users" class="hidden">
+      <div class="split">
+        <div class="panel">
+          <h2>Add a staff account</h2>
+          <form id="staff-form" novalidate>
+            <label for="s-role">Role</label>
+            <select id="s-role">
+              <option value="WARD_OFFICER">Ward Officer</option>
+              <option value="ZONAL_OFFICER">Zonal Officer</option>
+              <option value="ADMIN">Commissioner (Admin)</option>
+            </select>
+            <div class="field-error" data-error-for="role"></div>
+
+            <div class="row" id="s-area">
+              <div>
+                <label for="s-zone">Zone</label>
+                <select id="s-zone"><option value="">Choose a zone</option></select>
+                <div class="field-error" data-error-for="zoneId"></div>
+              </div>
+              <div id="s-ward-box">
+                <label for="s-ward">Ward</label>
+                <select id="s-ward" disabled><option value="">Choose a zone first</option></select>
+                <div class="field-error" data-error-for="wardId"></div>
+              </div>
+            </div>
+
+            <label for="s-name">Full name</label>
+            <input id="s-name" maxlength="100">
+            <div class="field-error" data-error-for="name"></div>
+
+            <label for="s-email">Email</label>
+            <input id="s-email" type="email" maxlength="150">
+            <div class="field-error" data-error-for="email"></div>
+
+            <label for="s-phone">Mobile number</label>
+            <input id="s-phone" inputmode="numeric" maxlength="10">
+            <div class="field-error" data-error-for="phone"></div>
+
+            <label for="s-password">Temporary password <span class="hint">(8 to 72 characters)</span></label>
+            <input id="s-password" type="text" maxlength="72" autocomplete="off">
+            <div class="field-error" data-error-for="password"></div>
+
+            <div class="actions"><button type="submit">Create account</button></div>
+            <div class="form-message" role="alert"></div>
+          </form>
+          <p class="muted" style="margin-top:12px">A new ward officer automatically takes over unassigned open complaints in their ward.</p>
+        </div>
+        <div class="panel">
+          <h2>Accounts</h2>
+          <div class="table-wrap"><table class="data"><thead><tr><th>Name</th><th>Role</th><th>Area</th><th>Status</th><th></th></tr></thead><tbody id="users-body"></tbody></table></div>
+          <div class="pager" id="users-pager"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tab-tools" class="hidden">
+      <div class="panel">
+        <h2>Run the SLA engine now</h2>
+        <p>The engine checks for overdue complaints every minute. Each overdue complaint moves one step up: Ward Officer, then Zonal Officer, then Commissioner, and gets a fresh 24-hour window. Run it now to see escalations without waiting.</p>
+        <button type="button" id="run-sla">Run SLA check</button>
+        <p class="muted" id="sla-result" style="margin-top:10px"></p>
+      </div>
+      <div class="panel">
+        <h2>Add demo complaints</h2>
+        <p>Creates random complaints from the demo citizens, filed over the last four days. Some will already be overdue, so the next SLA check escalates them.</p>
+        <div class="row" style="max-width:360px;align-items:end">
+          <div><label for="demo-count">How many</label><input id="demo-count" type="number" min="1" max="50" value="5"></div>
+          <div><button type="button" id="run-demo">Add complaints</button></div>
+        </div>
+        <p class="muted" id="demo-result" style="margin-top:10px"></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/ui.js"></script>
+  <script src="/js/tabs.js"></script>
+  <script src="/js/board.js"></script>
+  <script src="/js/policies.js"></script>
+  <script src="/js/dash.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
